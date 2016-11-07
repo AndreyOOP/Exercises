@@ -51,7 +51,9 @@ public class Solver {
         iteration = 0;
 
         input.add(a);
-        isAnswer(a);
+
+        if(isAnswer(a))
+            System.out.println( iteration);
     }
 
     private static Boolean buttonAction(int value){
