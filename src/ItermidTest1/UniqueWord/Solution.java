@@ -1,7 +1,6 @@
-//package ItermidTest1.UniqueWord;
+package ItermidTest1.UniqueWord;
 
 import java.io.PrintWriter;
-import java.util.LinkedList;
 import java.util.Scanner;
 
 public class Solution {
@@ -13,40 +12,36 @@ public class Solution {
 
         getInput();
 
-        solution();
+        solutionFaster();
 
         setOutput();
     }
 
-    private static void solution(){
+    private static void solutionFaster(){
 
-        LinkedList<Character> answ = new LinkedList<>();
+        StringBuilder answ = new StringBuilder( inStr.length());
 
         char next;
+        int  lastInd;
 
         for(int i=0; i<inStr.length(); i++){
 
             next = inStr.charAt(i);
 
-            if ( !answ.isEmpty()) {
+            lastInd = answ.length() - 1;
 
-                if( next == answ.peek()){
-                    answ.pop();
+            if(lastInd > -1){
+
+                if(next == answ.charAt( lastInd)){
+                    answ.deleteCharAt(lastInd);
                 }else
-                    answ.push(next);
-
+                    answ.append(next);
             }else {
-                answ.push(next);
+                answ.append(next);
             }
         }
 
-        StringBuilder sb = new StringBuilder();
-
-        for(int i=answ.size()-1; i>=0; i--){
-            sb.append( answ.get(i));
-        }
-
-        outStr = sb.toString();
+        outStr = answ.toString();
     }
 
     private static void getInput(){
