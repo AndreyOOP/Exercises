@@ -8,11 +8,11 @@ public class Premutation {
     public static void main(String[] args) {
 
         length  = 3;
-        alphbet = new String[]{"a", "b", "c", "d"};
+        alphbet = new String[]{"a", "b", "c"};
 
 //        printAllPremutations();
 //        withoutRepeating();
-        allRecursive("", "abcdefg"); //for all length todo add for length 2, 3 etc
+        allRecursive("", "abc"); //for all length todo add for length 2, 3 etc
     }
 
     public static void printAllPremutations(){
