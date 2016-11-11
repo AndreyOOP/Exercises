@@ -1,4 +1,4 @@
-package OlympWeight;
+package Other.OlympWeight;
 
 import java.io.PrintWriter;
 import java.util.LinkedList;

@@ -1,4 +1,4 @@
-package MagicMachine;
+package Other.MagicMachine;
 
 import java.io.*;
 import java.util.*;
