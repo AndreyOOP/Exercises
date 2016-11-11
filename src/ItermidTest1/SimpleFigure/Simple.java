@@ -4,76 +4,41 @@ import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+/**Note: 1 is not simple figure*/
 public class Simple {
 
-    static int a;
-    static int b;
-
     static int lastSimple;
+    static int sqRoot;
 
+    static LinkedList<Pair>    inputPairs    = new LinkedList<>();
     static LinkedList<Integer> simpleFigures = new LinkedList<>();
-
-    static LinkedList<Pair> pairs = new LinkedList<>();
-
 
     public static void main(String[] args) {
 
         getInput();
 
-        for (Pair p: pairs) {
+        //region all simple figures in range
+        LinkedList<Integer> list = populateRange( Pair.max);
 
-            a = p.a;
-            b = p.b;
+        simpleFigures.add(2);
 
-            LinkedList<Integer> list = new LinkedList<>();
+        sqRoot = (int)Math.sqrt(Pair.max)+1;
 
-            for(int i=2; i<=b; i++)
-                list.add(i);
+        while( lastSimple < sqRoot) {
 
-            simpleFigures.add(1);
+            lastSimple = list.get(0);
 
-            int sq = (int)Math.sqrt(b)+1;
+            simpleFigures.add( lastSimple);
 
-            while( list.size() > 0) {
-
-                lastSimple = list.get(0); //get next simple
-
-                simpleFigures.add( lastSimple);
-
-                if(  lastSimple < sq)
-                    list = filterForSimple(list, lastSimple);
-                else{
-                    list.remove(0);
-                    break;
-                }
-            }
-
-            simpleFigures.addAll( list);
-
-            print( figuresInRange(simpleFigures, a, b));
-        }
-    }
-
-    public static void print(int answer){
-
-        PrintWriter printWriter = new PrintWriter( System.out);
-
-        printWriter.println(answer);
-
-        printWriter.flush();
-    }
-
-    public static LinkedList<Integer> filterForSimple(LinkedList<Integer> in, int simple){
-
-        LinkedList<Integer> out = new LinkedList<>();
-
-        for(Integer i: in) {
-            if ( i%simple != 0) {
-                out.add(i);
-            }
+            filterForSimple(list, lastSimple);
         }
 
-        return out;
+        simpleFigures.addAll( list);
+        //endregion
+
+        for (Pair p: inputPairs) {
+            print( figuresInRange(simpleFigures, p.a, p.b));
+        }
     }
 
     public static void getInput(){
@@ -82,15 +47,67 @@ public class Simple {
 
         int n = scanner.nextInt();
 
-        a = scanner.nextInt();
-        b = scanner.nextInt();
+        int a;
+        int b;
 
-        for(int i=0; i<n; i++)
-            pairs.add( new Pair(a, b));
+        for(int i=0; i<n; i++){
+
+            a = scanner.nextInt();
+            b = scanner.nextInt();
+
+            inputPairs.add( new Pair(a, b));
+        }
 
     }
 
-    public static int figuresInRange(LinkedList<Integer> list, int a, int b){
+    public static LinkedList<Integer> populateRange(int upperLimit){
+
+        LinkedList<Integer> list = new LinkedList<>();
+
+        for(int i=1; i<(upperLimit/2+1); i++){ //todo 6m+-1... (not successfull)
+            list.add(2*i+1);
+        }
+
+        while (upperLimit < list.getLast()){ //todo error in case of very small range
+            list.removeLast();
+        }
+
+        return list;
+    }
+
+    public static LinkedList<Integer> filterForSimple(LinkedList<Integer> in, int simple){
+
+        LinkedList<Integer> figuresToRemove = new LinkedList<>();
+
+        int forRemove = simple;
+        int max       = in.getLast();
+        int i = 0;
+
+        figuresToRemove.add( simple);
+
+        while (forRemove <= max){
+
+            forRemove = in.get(i)*simple;
+
+            figuresToRemove.add( forRemove);
+            i++;
+        }
+
+        for(Integer r: figuresToRemove){
+            in.remove(r);
+        }
+
+        /*for(Integer i: in) {
+
+            if ( i % simple != 0) {
+                out.add(i);
+            }
+        }*/
+
+        return in;
+    }
+
+    public static int figuresInRange(LinkedList<Integer> list, int a, int b){ //todo rewrite
 
         int qty = 0;
 
@@ -104,14 +121,30 @@ public class Simple {
         return qty;
     }
 
+    public static void print(int answer){
+
+        PrintWriter printWriter = new PrintWriter( System.out);
+
+        printWriter.println(answer);
+
+        printWriter.flush();
+    }
+
     static class Pair{
+
+        public static int max = -1;
 
         public int a;
         public int b;
 
-        public Pair(int a, int b) { //todo add sort or find max b, for max b - find range, then find answer for each range
+        public Pair(int a, int b) {
+
             this.a = a;
             this.b = b;
+
+            if(b > max)
+                max = b;
         }
     }
+
 }
