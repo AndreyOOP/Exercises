@@ -1,4 +1,4 @@
-package Premutation;
+package Basics;
 
 public class Premutation {
 
