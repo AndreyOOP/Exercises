@@ -1,4 +1,4 @@
-package Basics;
+package Basics.BinarySearch;
 
 /**Add here comparison - binary search of Arrays vs Collections*/
 public class BinarySearch {

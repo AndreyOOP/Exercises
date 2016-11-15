@@ -1,4 +1,4 @@
-package Basics;
+package Basics.Premutations;
 
 public class Premutation {
 
