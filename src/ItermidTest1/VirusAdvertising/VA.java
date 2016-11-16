@@ -13,24 +13,39 @@ public class VA {
 
         matrix = getInput();
 
-        checked = new int[n];
+//        checked = new int[n];
 
         for(int i=0; i<n; i++){
 
-            if(checked[i] == 0){ //not checked
+//            if(checked[i] == 0){ //not checked
 
-                for(int j=i+1; j<n; j++){
+                for(int j=0; j<n; j++){
 
                     if(matrix[i][j] > 0){ //find friend
 
-                        for(int k=j+1; k<n; k++){
+                        for(int k=0; k<n; k++){
                             matrix[i][k] += matrix[j][k];
+                            matrix[j][k]  = 0;
                         }
-                        checked[j] = 1;
+                        print( matrix);
                     }
-                }
+//                }
+
+//                checked[i] = 1;
             }
         }
+    }
+
+    static void print(int[][] matrix){
+
+        for(int i=0; i<n; i++){
+            for(int j=0; j<n; j++){
+                System.out.print(matrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+
+        System.out.println();
     }
 
     static int[][] getInput(){
