@@ -1,10 +1,13 @@
 package ItermidTest1.Dinners;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Scanner;
 
 /**seems this solution become out of memory because of very big fs array*/
+/** it is enougth time for collections but problem with mmory ? */
 public class Dinner {
 
     //region Variables
@@ -13,33 +16,51 @@ public class Dinner {
     static int b;
     static int k;
 
-    static int[] priceF;
-    static int[] priceS;
-    static int[] priceB;
+//    static int[] priceF;
+//    static int[] priceS;
+//    static int[] priceB;
+
+    static ArrayList<Integer> priceF = new ArrayList<>();
+    static ArrayList<Integer> priceS = new ArrayList<>();
+    static ArrayList<Integer> priceB = new ArrayList<>();
     //endregion
 
     public static void main(String[] args) {
 
         getInput();
 
-        int[] fs = new int[f*s]; //todo seems this is question is bigger than possible array size
+//        int[] fs = new int[f*s]; //todo seems this is question is bigger than possible array size
+        ArrayList<Integer> fs = new ArrayList<>(f*s); //todo seems this is question is bigger than possible array size
 
         for(int i=0; i<f; i++){
 
             for(int j=0; j<s; j++)
-                fs[i*s + j] = priceF[i] + priceS[j];
+//                    fs[i*s + j] = priceF[i] + priceS[j];
+//            fs.add(i*s + j, priceF[i] + priceS[j]);
+            fs.add( priceF.get(i) + priceS.get(j));
         }
 
-        Arrays.sort(fs);
+        fs.addAll(priceB);
 
-        int fsb[] = new int[fs.length + priceB.length];
+        Collections.sort(fs);
+//        Arrays.sort(fs);
 
-        System.arraycopy(fs    , 0, fsb, 0        , fs.length);
-        System.arraycopy(priceB, 0, fsb, fs.length, priceB.length);
+//        int fsb[] = new int[fs.length + priceB.length];
+//        ArrayList<Integer> fsb = new ArrayList(fs.size() + priceB.length);
+//        ArrayList<Integer> fsb = new ArrayList();
 
-        Arrays.sort(fsb);
+//        System.arraycopy(fs    , 0, fsb, 0        , fs.length);
+//        System.arraycopy(priceB, 0, fsb, fs.length, priceB.length);
+//        fsb.addAll(fs);
 
-        printAnswer(fsb);
+//        for(int i=0; i<priceB.size(); i++)
+//            fsb.add(priceB[i]);
+//        fsb.addAll(priceB);
+
+//        Arrays.sort(fsb);
+//        Collections.sort(fsb);
+
+        printAnswer(fs);
     }
 
     public static void getInput(){
@@ -50,18 +71,21 @@ public class Dinner {
         s = scanner.nextInt();
         b = scanner.nextInt();
 
-        priceF = new int[f];
-        priceS = new int[s];
-        priceB = new int[b];
+//        priceF = new int[f];
+//        priceS = new int[s];
+//        priceB = new int[b];
 
         for(int i=0; i<f; i++)
-            priceF[i] = scanner.nextInt();
+//            priceF[i] = scanner.nextInt();
+            priceF.add( scanner.nextInt());
 
         for(int i=0; i<s; i++)
-            priceS[i] = scanner.nextInt();
+//            priceS[i] = scanner.nextInt();
+            priceS.add( scanner.nextInt());
 
         for(int i=0; i<b; i++)
-            priceB[i] = scanner.nextInt();
+//            priceB[i] = scanner.nextInt();
+            priceB.add( scanner.nextInt());
 
         k = scanner.nextInt();
     }
@@ -74,6 +98,18 @@ public class Dinner {
             printWriter.print(fsb[i] + " ");
 
         printWriter.flush();
+    }
+
+    public static void printAnswer(ArrayList<Integer> fsb){
+
+        PrintWriter printWriter = new PrintWriter(System.out);
+
+        for(int i=0; i<k; i++){
+
+            printWriter.print( fsb.get(i) + " ");
+            printWriter.flush();
+        }
+
     }
 
     public static void print(int[] arr){
