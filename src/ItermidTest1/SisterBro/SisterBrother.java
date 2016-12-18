@@ -11,16 +11,18 @@ public class SisterBrother {
     //region Variables
     static int n; //qty of programmers
     static int m; //links
-    static int q; //links
+    static int q;
 
     static int a;
     static int b;
 
-    static LinkedList<HashSet<Integer>> list = new LinkedList<>();
+    static LinkedList<HashSet<Integer>> list = new LinkedList<>(); /**list of founded relatives*/
 
     static HashSet<Integer> setA;
     static HashSet<Integer> setB;
     static HashSet<Integer> temp;
+
+    static Boolean found;
 
     static PrintWriter printWriter = new PrintWriter(System.out);
     //endregion
@@ -29,18 +31,16 @@ public class SisterBrother {
 
         Scanner scanner = new Scanner(System.in);
 
-        n = scanner.nextInt();
+        n = scanner.nextInt(); //is n uses somewhere ?
         m = scanner.nextInt();
 
         for(int i=0; i<m; i++){
-            //read a b & add them to list
-            a = scanner.nextInt();
-            b = scanner.nextInt();
 
-            setA = getSet(a);
-            setB = getSet(b);
+            a = scanner.nextInt(); b = scanner.nextInt();
 
-            if(setA == null && setB == null){ //no set with a and b -> create new hashset
+            setA = getSet(a); setB = getSet(b);
+
+            if(setA == null && setB == null){       /**no set with a and b -> create new HashSet*/
 
                 temp = new HashSet<>();
 
@@ -48,40 +48,40 @@ public class SisterBrother {
 
                 list.add(temp);
 
-            } else if(setA != null && setB == null){ //only a or b in set -> add a or b to set
+            } else if(setA != null && setB == null){ /**only a or b in set -> add a or b to set*/
 
                 setA.add(b);
 
-            } else if(setA == null && setB != null){ //only a or b in set -> add a or b to set
+            } else if(setA == null && setB != null){ /**only a or b in set -> add a or b to set*/
 
                 setB.add(a);
 
-            } else if(setA != setB){ //a & b in different sets -> merge sets
+            } else if(setA != setB){                 /**a & b in different sets -> merge sets*/
 
-                setA.addAll(setB);
                 list.remove(setB);
-            } //a & b in the same set -> nothing
+                setA.addAll(setB);
+            }                                       /**a & b in the same set -> nothing*/
         }
 
         q = scanner.nextInt();
 
         for(int i=0; i<q; i++){
 
-            a = scanner.nextInt();
-            b = scanner.nextInt();
+            a = scanner.nextInt(); b = scanner.nextInt();
+            found = false;
 
             for(HashSet<Integer> set: list){
 
                 if(set.contains(a) && set.contains(b)){
 
                     printWriter.println(":)");
-                    break;
-
-                } else {
-                    printWriter.println(":(");
+                    found = true;
                     break;
                 }
             }
+
+            if ( !found)
+                printWriter.println(":(");
         }
 
         printWriter.flush();
