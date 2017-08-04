@@ -12,6 +12,11 @@ public class Testing {
     static boolean[] marked;
     static int count;
 
+    //add is contain cycles
+    //add connectivity
+
+    //add for directed graphs ?
+
     public static void main(String[] args) {
 
         GraphIncidenceMatrix graph = new GraphIncidenceMatrix( fillIncidenceMatrix());
