@@ -10,9 +10,7 @@ public class HasCycles {
 
     public static void main(String[] args) {
 
-//        System.out.println( hasCycle( noCycleSampleGraph()));
-//        System.out.println( hasCycle( cycleSampleGraph()));
-        System.out.println( hasCycle( cycleForReview()));
+        System.out.println( hasCycle( cycleGraph()));
     }
 
     static boolean hasCycle(LinkedList<Integer>[] graph){
@@ -30,7 +28,7 @@ public class HasCycles {
         return isCycle;
     }
 
-    static void dfs(LinkedList<Integer>[] graph, int v, int u){
+    static void dfs(LinkedList<Integer>[] graph, int v, int u){ /**u - otkuda prishli*/
 
         marked[v] = true;
 
@@ -39,7 +37,7 @@ public class HasCycles {
             if(!marked[w]){
                 dfs(graph, w, v);
             }
-            else if (w != u){
+            else if (w != u){ /**esli popadaem v okrashenuu vershuny drugim putem => cukl*/
                 isCycle = true;
             }
         }
