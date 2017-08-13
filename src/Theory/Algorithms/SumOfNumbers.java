@@ -4,7 +4,13 @@ public class SumOfNumbers {
 
     public static void main(String[] args) {
 
-        long n  = 842937621;
+        int n  = 842937621;
+
+        System.out.println(sum(n));
+        System.out.println(sumRec(n));
+    }
+
+    static int sum(int n){
 
         int sum = 0;
 
@@ -14,6 +20,13 @@ public class SumOfNumbers {
             n /= 10;
         }
 
-        System.out.println(sum);
+        return sum;
+    }
+
+    static int sumRec(int n){
+
+        if(n < 10) return n;
+
+        return sumRec(n/10) + n%10;
     }
 }

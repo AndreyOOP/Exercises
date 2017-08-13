@@ -1,0 +1,11 @@
+list of algorithms
+
+ reverse oriented graph
+1) bfs - shortest paths
+3) Oriented graph - path found
+4) topological sort
+
+dfs - connectivity -> DFS_Connectivity
+bfs - connectivity -> BFS_Connectivity
+magic figures - few ways of solution -> https://www.e-olymp.com/ru/problems/4850 -> Exercices.DynamicPrograms.MagicMachine
+is two color (двудольный)  bfs & dfs -> Theory.Graph.DFS_TwoColour & Theory.Graph.GraphsSchemes.BFS_TwoColour
