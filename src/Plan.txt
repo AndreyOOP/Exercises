@@ -1,10 +1,11 @@
-list of algorithms
+list of algorithms p524
+1) reverse oriented graph
+2) oriented bfs - shortest paths
+3) topological sort !
+4) is oriented graph has cycle -> Theory.Graph.DFS_OrGraph_isCycle - add cycle?
 
- reverse oriented graph
-1) bfs - shortest paths
-3) Oriented graph - path found
-4) topological sort
 
+is oriented graph has cycle -> Theory.Graph.DFS_OrGraph_isCycle
 dfs - connectivity -> DFS_Connectivity
 bfs - connectivity -> BFS_Connectivity
 magic figures - few ways of solution -> https://www.e-olymp.com/ru/problems/4850 -> Exercices.DynamicPrograms.MagicMachine
