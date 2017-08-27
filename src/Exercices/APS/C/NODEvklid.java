@@ -9,7 +9,7 @@ public class NODEvklid {
     static int n, m, nod;
     static int a, b, temp;
 
-
+    //better in C1
     public static void main(String[] args) {
 
         getInput();
