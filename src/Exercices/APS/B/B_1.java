@@ -1,10 +1,10 @@
-package Exercices.APS;
+package Exercices.APS.B;
 
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-public class B {
+public class B_1 {
 
     static int N, K;
     static char[] work;

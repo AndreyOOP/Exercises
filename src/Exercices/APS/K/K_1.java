@@ -1,10 +1,10 @@
-package Exercices.APS;
+package Exercices.APS.K;
 
 import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class K {
+public class K_1 {
 
     static int N, K;
     static long B, C, M, A1;
