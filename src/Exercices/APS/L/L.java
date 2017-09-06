@@ -1,4 +1,4 @@
-package Exercices.APS;
+package Exercices.APS.L;
 
 import java.io.PrintWriter;
 import java.util.LinkedList;
@@ -102,6 +102,7 @@ public class L {
             w = sc.nextInt();
 
             G[u].add(new Edge(u, v, w));
+            G[v].add(new Edge(v, u, w));
         }
     }
 
