@@ -1,61 +1,75 @@
 package Exercices.ItermidTest1.Virus;
 
 import java.io.PrintWriter;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Scanner;
 
+/** 2/10 test cases passes, 2 wrong answer, other time limit*/
 public class T {
 
     static String D;
     static boolean[][] m;
+    static int maxD = -1;
+    static HashSet<String> answers = new HashSet<>();
+    static String[] virusDNK;
 
     public static void main(String[] args) {
 
         getInput();
 
-        int l = D.length();
+        populateMatrix();
 
-        m = new boolean[l][l];
+        for(int d=1; d<m.length; d++)
+            checkDiagonal(d);
 
-        for(int i=0; i<l; i++){
-            for(int j=0; j<l; j++){
+        virusDNK = new String[answers.size()];
+        answers.toArray(virusDNK);
+
+        Arrays.sort(virusDNK);
+
+        for(String s: virusDNK)
+            print(s);
+    }
+
+    static void checkDiagonal(int d){
+
+        int j = 0;
+        int tempMax = 0;
+        String tempStr = "";
+
+        for(int i=d; i<m.length; i++){
+
+            if(m[j++][i]){
+
+                tempMax++;
+                tempStr += D.charAt(i);
+
+                if(tempMax > maxD){
+                    maxD = tempMax;
+                    answers.clear();
+                    answers.add(tempStr);
+
+                } else if(tempMax == maxD){
+                    answers.add(tempStr);
+                }
+
+            } else {
+                tempMax = 0;
+                tempStr = "";
+            }
+        }
+    }
+
+    static void populateMatrix(){
+
+        int size = D.length();
+
+        m = new boolean[size][size];
+
+        for(int i=0; i<size; i++)
+            for(int j=0; j<size; j++)
                 if(D.charAt(i) == D.charAt(j)) m[i][j] = true;
-            }
-        }
-
-        int maxLen = 0;
-        int k = 1;
-        String temp = "";
-        String maxStr = "";
-        //find max len of diagonal of true - store coordinates
-        for(k=1; k<l; k++){
-
-            int currLen = 0;
-            temp = "";
-
-            for(int i=0; i+k<l; i++){
-
-                if(m[i][k+i]){
-                    currLen++; //current Diagonal counter ++
-                    temp += D.charAt(i);
-                }else {
-
-                    if(currLen > maxLen){
-                        maxLen = currLen;
-                        maxStr = temp;
-                    }
-                    //max check ->if success save positin
-                   temp = "";
-                   currLen = 0; //current Diagonal counter ++ to zero
-                }
-
-                if(currLen > maxLen){
-                    maxLen = currLen;
-                    maxStr = temp;
-                }
-            }
-        }
-
-        print(maxStr);
     }
 
     static void getInput(){
@@ -70,4 +84,5 @@ public class T {
         pw.println(val);
         pw.flush();
     }
+
 }
