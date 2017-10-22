@@ -44,15 +44,41 @@ public class M_2 {
 
         Arrays.sort(pq.pq, 1, pq.currSize+1);
 
-        int bCount = 0, pqCount = 1;
+        int bCount = 0, pqCount = 1; int i;
 
-        for(int i=0; i<K; i++){
-            if(b[bCount] < pq.pq[pqCount]){
-                pw.print(b[bCount++] + " ");
-            }else {
+        for(i=0; i<K && pqCount<pq.pq.length && bCount<b.length; i++){
+
+            if(pq.pq[pqCount] < b[bCount])
                 pw.print(pq.pq[pqCount++] + " ");
-            }
+            else
+                pw.print(b[bCount++] + " ");
         }
+
+        if(pqCount<pq.pq.length){
+            for(int j = i; j<K; j++)
+                pw.print(pq.pq[pqCount++] + " ");
+        }
+
+        if(bCount<b.length){
+            for(int j = i; j<K; j++)
+                pw.print(b[bCount++] + " ");
+        }
+        
+//        for(int i=0; i<K; i++){
+//
+//            if(b[bCount] < pq.pq[pqCount]){
+//
+//                if(bCount < b.length)
+//                    pw.print(b[bCount++] + " ");
+//                else
+//                    pw.print(pq.pq[pqCount++] + " ");
+//            }else {
+//                if(pqCount < pq.pq.length)
+//                    pw.print(pq.pq[pqCount++] + " ");
+//                else
+//                    pw.print(b[bCount++] + " ");
+//            }
+//        }
 
         pw.flush();
     }
@@ -127,22 +153,6 @@ public class M_2 {
                 swap(j, i);
                 i = j;
             }
-
-            /*while (2*i+1 < pq.length){
-
-                if(n < pq[2*i] || n < pq[2*i+1]){
-
-                    if(pq[2*i] > pq[2*i+1]) {
-                        swap(i, 2*i);
-                        i = 2*i;
-                    } else {
-                        swap(i, 2*i+1);
-                        i = 2*i+1;
-                    }
-                }else {
-                    break;
-                }
-            }*/
         }
 
         private void swap(int i, int j){
