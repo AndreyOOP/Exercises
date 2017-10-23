@@ -6,6 +6,9 @@ import java.util.Scanner;
 /**
  * 1) Lets suppose that = is end of calculations, in other words during calculations use of few = is no allowed, like 1+2=1 -> 31
  * 2) For simplicity for first try lets use LinkedList*/
+//todo check 0 intput case, incorrect clculations...
+    //todo try same solution for another behaviour of = button; use reqursion
+    //todo try to avoid Linked List
 public class Calc_NewHope {
 
     static int N, O, M, W;
@@ -22,38 +25,27 @@ public class Calc_NewHope {
 
         buttons = precalculation();
 
-        //q.add(new SV(0, 0));
+        initialize();
 
-        for(int i=0; i<buttons.length; i++){
+        while (q.size() > 0){
+
+            q = getNext(q);
+        }
+
+        answer(W);
+    }
+
+    static void initialize(){
+
+        for(int i=0; i<1000; i++)
+            min[i] = Integer.MAX_VALUE;
+
+        for(int i=0; i<buttons.length; i++){ //update min
 
             q.add(buttons[i]);
 
-            min[buttons[i].value] = buttons[i].step;
-        }
-
-        int step;
-        //do operation + button -> move to equals & again
-            //add to next iteration result of previoud
-        while (true){ //todo
-
-            q = getNext(q);
-
-            updateMin(q);
-        }
-
-        //todo print answer
-    }
-
-    static void updateMin(LinkedList<SV> q){
-
-        int currStep;
-
-        for(SV sv : q){
-
-            currStep = sv.step+1;
-
-            if(min[sv.value] > currStep && currStep <= M)
-                min[sv.value] = currStep;
+            if(min[buttons[i].value] > buttons[i].step)
+                min[buttons[i].value] = buttons[i].step;
         }
     }
 
@@ -66,18 +58,49 @@ public class Calc_NewHope {
 
             for(int i=0; i<buttons.length; i++){ //do all possible operations with all possble buttons
 
-                //based on operation calculate next, check it
-                //todo check next, add to check step < M, in range
-                //e.g. +
-                    out.add(new SV(buttons[i].step + 2 , sv.value+buttons[i].value));
-                //e.g. -
-                    out.add(new SV(buttons[i].step + 2 , sv.value-buttons[i].value));
+                for(int j=0; j<O; j++){
+
+                    if(o[j] == 1){
+                        next = new SV(sv.step + 1 + buttons[i].step, sv.value+buttons[i].value);
+                        if( isOK(next) && isUnique(next)) out.add(next);
+                    }
+
+                    if(o[j] == 2){
+                        next = new SV(sv.step + 1 + buttons[i].step, sv.value-buttons[i].value);
+                        if( isOK(next) && isUnique(next)) out.add(next);
+                    }
+
+                    if(o[j] == 3){
+                        next = new SV(sv.step + 1 + buttons[i].step, sv.value*buttons[i].value);
+                        if( isOK(next) && isUnique(next)) out.add(next);
+                    }
+
+                    if(o[j] == 4 && buttons[i].value != 0){
+                        next = new SV(sv.step + 1 + buttons[i].step, sv.value/buttons[i].value);
+                        if( isOK(next) && isUnique(next)) out.add(next);
+                    }
+                }
             }
         }
 
         return out;
     }
 
+    static boolean isUnique(SV sv){ //todo add to next ?? should be added to next queue
+
+        if(min[sv.value] > sv.step+1){
+            min[sv.value] = sv.step+1;
+            return true;
+        }
+        return false;
+    }
+
+    static boolean isOK(SV sv){
+
+        if(sv.step > M) return false;
+
+        return sv.value > 0 && sv.value<1000;
+    }
 
     static SV[] precalculation(){
 
@@ -115,6 +138,19 @@ public class Calc_NewHope {
             this.step = step;
             this.value = value;
         }
+
+        @Override
+        public String toString(){
+            return step + ":" + value;
+        }
+    }
+
+    static void answer(int w){
+
+        if(min[w] <= W)
+            System.out.println(min[w]);
+        else
+            System.out.println(-1);
     }
 
     static void getInput(){
